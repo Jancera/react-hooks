@@ -7,22 +7,18 @@ import {
   Button,
 } from "react-native";
 
+import Input from "./src/components/Input";
+
 const App = () => {
-  const [text, setText] = useState("");
   const [boolean, setBoolean] = useState(false);
 
   return (
     <>
-      {boolean && <Text style={styles.title}>useState Example</Text>}
+      <Text style={styles.title}>useEffect Example</Text>
       <View style={styles.container}>
-        <Text style={styles.text}>{text}</Text>
-        <TextInput
-          style={styles.input}
-          value={text}
-          onChangeText={(value) => setText(value)}
-        />
+        {boolean && <Input />}
         <Button
-          title={boolean ? "Hide title" : "Show title"}
+          title={boolean ? "Hide input" : "Show input"}
           onPress={() => setBoolean(!boolean)}
         />
       </View>
@@ -37,21 +33,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 50,
   },
-  text: {
-    fontSize: 20,
-  },
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  input: {
-    backgroundColor: "#e7e7e7",
-    padding: 10,
-    borderRadius: 10,
-    fontSize: 25,
-    marginVertical: 10,
-    width: "80%",
   },
 });
 
