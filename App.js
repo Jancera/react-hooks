@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   View,
   Text,
@@ -7,40 +7,52 @@ import {
   TextInput,
 } from "react-native";
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "setText":
-      return { ...state, text: action.payload };
-    default:
-      return state;
-  }
-};
-
-const initialValue = {
-  text: "",
-};
-
 const App = () => {
-  const [string, setString] = useState(false);
+  const [text, setText] = useState("");
 
-  const [state, dispatch] = useReducer(reducer, initialValue);
+  const inputRef = useRef();
+  const dataRef = useRef();
+
+  const saveInput = () => {
+    dataRef.current = text;
+  };
 
   return (
     <>
-      <Text style={styles.title}>useReducer Example</Text>
+      <Text style={styles.title}>useRef Example</Text>
       <View style={styles.container}>
-        <Text style={styles.text}>{state.text}</Text>
-        {/* <TextInput
+        <Text style={styles.text}>{text}</Text>
+        <TextInput
+          ref={inputRef}
           style={styles.input}
-          value={state.text}
-          onChangeText={(text) => {
-            dispatch({ type: "setText", payload: text });
-          }}
-        /> */}
+          value={text}
+          onChangeText={(text) => setText(text)}
+        />
         <Button
-          title="Set text"
+          title="Clear input"
+          onPress={() => inputRef.current.clear()}
+        />
+        <Button
+          title="Focus input"
+          onPress={() => inputRef.current.focus()}
+        />
+        <Button
+          title="isFocused"
+          onPress={() => console.log(inputRef.current.isFocused())}
+        />
+        <Button title="Save Input" onPress={saveInput} />
+        <Button
+          title="Log Saved Input"
+          onPress={() => console.log(dataRef.current)}
+        />
+        <Button
+          title="setNativeProps"
           onPress={() =>
-            dispatch({ type: "setText", payload: "New Text" })
+            inputRef.current.setNativeProps({
+              borderWidth: 3,
+              borderColor: "red",
+              text: "New",
+            })
           }
         />
       </View>
