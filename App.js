@@ -1,25 +1,47 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   Button,
+  TextInput,
 } from "react-native";
 
-import Input from "./src/components/Input";
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "setText":
+      return { ...state, text: action.payload };
+    default:
+      return state;
+  }
+};
+
+const initialValue = {
+  text: "",
+};
 
 const App = () => {
-  const [boolean, setBoolean] = useState(false);
+  const [string, setString] = useState(false);
+
+  const [state, dispatch] = useReducer(reducer, initialValue);
 
   return (
     <>
-      <Text style={styles.title}>useEffect Example</Text>
+      <Text style={styles.title}>useReducer Example</Text>
       <View style={styles.container}>
-        {boolean && <Input />}
+        <Text style={styles.text}>{state.text}</Text>
+        {/* <TextInput
+          style={styles.input}
+          value={state.text}
+          onChangeText={(text) => {
+            dispatch({ type: "setText", payload: text });
+          }}
+        /> */}
         <Button
-          title={boolean ? "Hide input" : "Show input"}
-          onPress={() => setBoolean(!boolean)}
+          title="Set text"
+          onPress={() =>
+            dispatch({ type: "setText", payload: "New Text" })
+          }
         />
       </View>
     </>
@@ -27,16 +49,28 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   title: {
     fontSize: 30,
     fontWeight: "bold",
     alignSelf: "center",
     marginTop: 50,
   },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  text: {
+    fontSize: 20,
+    marginBottom: 20,
+  },
+  input: {
+    backgroundColor: "#e7e7e7",
+    padding: 10,
+    borderRadius: 10,
+    fontSize: 25,
+    marginVertical: 10,
+    width: "80%",
   },
 });
 
