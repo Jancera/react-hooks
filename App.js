@@ -1,59 +1,45 @@
-import React, { useRef, useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
+  FlatList,
   Button,
-  TextInput,
 } from "react-native";
 
 const App = () => {
-  const [text, setText] = useState("");
+  const [counter, setCounter] = useState(0);
 
-  const inputRef = useRef();
-  const dataRef = useRef();
-
-  const saveInput = () => {
-    dataRef.current = text;
-  };
-
+  const listData = [
+    { id: "1", name: "Item 1" },
+    { id: "2", name: "Item 2" },
+    { id: "3", name: "Item 3" },
+    { id: "4", name: "Item 4" },
+    { id: "5", name: "Item 5" },
+    { id: "6", name: "Item 6" },
+  ];
   return (
     <>
-      <Text style={styles.title}>useRef Example</Text>
+      <Text style={styles.title}>useMemo Example</Text>
+      <View style={styles.counterContainer}>
+        <Text style={styles.text}>{counter}</Text>
+        <Button
+          title="Increase Counter"
+          onPress={() => setCounter((counter) => counter + 1)}
+        />
+      </View>
       <View style={styles.container}>
-        <Text style={styles.text}>{text}</Text>
-        <TextInput
-          ref={inputRef}
-          style={styles.input}
-          value={text}
-          onChangeText={(text) => setText(text)}
-        />
-        <Button
-          title="Clear input"
-          onPress={() => inputRef.current.clear()}
-        />
-        <Button
-          title="Focus input"
-          onPress={() => inputRef.current.focus()}
-        />
-        <Button
-          title="isFocused"
-          onPress={() => console.log(inputRef.current.isFocused())}
-        />
-        <Button title="Save Input" onPress={saveInput} />
-        <Button
-          title="Log Saved Input"
-          onPress={() => console.log(dataRef.current)}
-        />
-        <Button
-          title="setNativeProps"
-          onPress={() =>
-            inputRef.current.setNativeProps({
-              borderWidth: 3,
-              borderColor: "red",
-              text: "New",
-            })
-          }
+        <FlatList
+          style={styles.list}
+          data={listData}
+          renderItem={({ item }) => {
+            console.log(`${item.name} Rendered`);
+            return (
+              <View style={styles.listItem}>
+                <Text>{item.name}</Text>
+              </View>
+            );
+          }}
         />
       </View>
     </>
@@ -62,7 +48,6 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -83,6 +68,23 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginVertical: 10,
     width: "80%",
+  },
+  list: {
+    borderWidth: 3,
+    borderColor: "black",
+    height: "30%",
+    width: "80%",
+  },
+  listItem: {
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  counterContainer: {
+    marginVertical: 30,
+    width: "80%",
+    alignSelf: "center",
+    alignItems: "center",
   },
 });
 
