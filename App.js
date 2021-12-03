@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Button,
-} from "react-native";
+import { View, Text, StyleSheet, TextInput } from "react-native";
+import MyButton from "./src/components/MyButton";
 
 const App = () => {
   const [text, setText] = useState("");
@@ -15,16 +10,14 @@ const App = () => {
     <>
       {boolean && <Text style={styles.title}>useState Example</Text>}
       <View style={styles.container}>
-        <Text style={styles.text}>{text}</Text>
+        <Text style={styles.text}>Message: {text}</Text>
         <TextInput
           style={styles.input}
+          placeholder="Message"
           value={text}
           onChangeText={(value) => setText(value)}
         />
-        <Button
-          title={boolean ? "Hide title" : "Show title"}
-          onPress={() => setBoolean(!boolean)}
-        />
+        <MyButton setState={setBoolean} />
       </View>
     </>
   );
