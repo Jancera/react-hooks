@@ -11,6 +11,8 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "setText":
       return { ...state, text: action.payload };
+    case "toogleRedBox":
+      return { ...state, showRedBox: action.payload };
     default:
       return state;
   }
@@ -18,10 +20,11 @@ const reducer = (state, action) => {
 
 const initialValue = {
   text: "",
+  showRedBox: false,
 };
 
 const App = () => {
-  const [string, setString] = useState(false);
+  let typedText;
 
   const [state, dispatch] = useReducer(reducer, initialValue);
 
@@ -30,17 +33,26 @@ const App = () => {
       <Text style={styles.title}>useReducer Example</Text>
       <View style={styles.container}>
         <Text style={styles.text}>{state.text}</Text>
-        {/* <TextInput
+        {state.showRedBox && <View style={styles.redBox} />}
+        <TextInput
           style={styles.input}
-          value={state.text}
           onChangeText={(text) => {
-            dispatch({ type: "setText", payload: text });
+            typedText = text;
           }}
-        /> */}
+        />
         <Button
           title="Set text"
           onPress={() =>
-            dispatch({ type: "setText", payload: "New Text" })
+            dispatch({ type: "setText", payload: typedText })
+          }
+        />
+        <Button
+          title={state.showRedBox ? "Hide Red Box" : "Show Red Box"}
+          onPress={() =>
+            dispatch({
+              type: "toogleRedBox",
+              payload: !state.showRedBox,
+            })
           }
         />
       </View>
@@ -63,6 +75,12 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     marginBottom: 20,
+  },
+  redBox: {
+    width: 200,
+    height: 200,
+    backgroundColor: "red",
+    alignSelf: "center",
   },
   input: {
     backgroundColor: "#e7e7e7",
