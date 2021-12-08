@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 
-const List = ({ data, prefix }) => {
+const List = ({ data }) => {
   console.log("List Rendered");
   return (
     <FlatList
