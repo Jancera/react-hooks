@@ -2,12 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 
 const List = ({ data, prefix }) => {
+  console.log("List Rendered");
   return (
     <FlatList
       style={styles.list}
       data={data}
       renderItem={({ item }) => {
-        console.log(`${item.name} Rendered`);
         return (
           <View style={styles.listItem}>
             <Text>
