@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Button,
   TextInput,
+  FlatList,
 } from "react-native";
 
 const reducer = (state, action) => {
@@ -24,36 +25,32 @@ const initialValue = {
 };
 
 const App = () => {
-  let typedText;
+  const [value, setValue] = useState(0);
+  const [randomList, setRandomList] = useState([]);
 
-  const [state, dispatch] = useReducer(reducer, initialValue);
+  const generateList = () => {};
 
   return (
     <>
       <Text style={styles.title}>useReducer Example</Text>
       <View style={styles.container}>
-        <Text style={styles.text}>{state.text}</Text>
-        {state.showRedBox && <View style={styles.redBox} />}
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => {
-            typedText = text;
+        <Text style={styles.text}>{value}</Text>
+
+        <Button
+          title="Increase counter"
+          onPress={() => setValue((value) => value + 1)}
+        />
+        <Button title="Generate List" onPress={generateList} />
+        <FlatList
+          data={randomList}
+          style={styles.list}
+          randerItem={({ item }) => {
+            return (
+              <View>
+                <Text>{item.number}</Text>
+              </View>
+            );
           }}
-        />
-        <Button
-          title="Set text"
-          onPress={() =>
-            dispatch({ type: "setText", payload: typedText })
-          }
-        />
-        <Button
-          title={state.showRedBox ? "Hide Red Box" : "Show Red Box"}
-          onPress={() =>
-            dispatch({
-              type: "toogleRedBox",
-              payload: !state.showRedBox,
-            })
-          }
         />
       </View>
     </>
@@ -76,12 +73,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 20,
   },
-  redBox: {
-    width: 200,
-    height: 200,
-    backgroundColor: "red",
-    alignSelf: "center",
-  },
+
   input: {
     backgroundColor: "#e7e7e7",
     padding: 10,
@@ -89,6 +81,12 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginVertical: 10,
     width: "80%",
+  },
+  list: {
+    borderWidth: 3,
+    borderColor: "black",
+    width: "50%",
+    height: "50%",
   },
 });
 
