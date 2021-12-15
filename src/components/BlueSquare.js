@@ -8,7 +8,6 @@ const BlueSquare = ({ children }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{info.username}</Text>
-      {children}
     </View>
   );
 };

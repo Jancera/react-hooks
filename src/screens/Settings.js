@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   text: {
-    fontSize: 30,
+    fontSize: 20,
   },
 });
 

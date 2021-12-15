@@ -6,17 +6,21 @@ import BlueSquare from "../components/BlueSquare";
 import { MainContext, useMainContext } from "../context/MainContext";
 
 const Home = () => {
-  const { counter, increaseCounter, decreaseCounter } =
-    useContext(MainContext);
+  /*  const { counter, increaseCounter, decreaseCounter, navigateUser } =
+    useContext(MainContext); */
+
+  const { counter, increaseCounter, decreaseCounter, navigateUser } =
+    useMainContext();
 
   return (
     <View style={styles.container}>
       <Text style={styles.counter}>{counter}</Text>
       <Button title="Increase" onPress={() => increaseCounter(1)} />
       <Button title="Decrease" onPress={() => decreaseCounter(1)} />
-      {/* <BlueSquare>
+      <Button title="navigate" onPress={navigateUser} />
+      <BlueSquare>
         <Text>Content passed as children</Text>
-      </BlueSquare> */}
+      </BlueSquare>
     </View>
   );
 };
