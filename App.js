@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import {
   View,
   Text,
@@ -24,6 +24,7 @@ const initialValue = {
 };
 
 const App = () => {
+  // const [text, setText] = useState("")
   let typedText;
 
   const [state, dispatch] = useReducer(reducer, initialValue);
@@ -37,6 +38,7 @@ const App = () => {
         <TextInput
           style={styles.input}
           onChangeText={(text) => {
+            // setText(text)
             typedText = text;
           }}
         />
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     alignSelf: "center",
-    marginTop: 50,
+    marginTop: 70,
   },
   text: {
     fontSize: 20,
