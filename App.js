@@ -1,11 +1,5 @@
 import React, { useMemo, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Button,
-} from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 import List from "./src/components/List";
 
 const App = () => {
@@ -13,7 +7,7 @@ const App = () => {
 
   const fakeData = useMemo(
     () => [
-      { id: "1", name: `Item ${counter}` },
+      { id: "1", name: `Item 1 ${counter}` },
       { id: "2", name: "Item 2" },
       { id: "3", name: "Item 3" },
       { id: "4", name: "Item 4" },

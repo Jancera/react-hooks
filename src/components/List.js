@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 
 const List = ({ data }) => {
   console.log("List Rendered");
+
   return (
     <FlatList
       style={styles.list}
@@ -10,9 +11,7 @@ const List = ({ data }) => {
       renderItem={({ item }) => {
         return (
           <View style={styles.listItem}>
-            <Text>
-              {prefix} {item.name}
-            </Text>
+            <Text>{item.name}</Text>
           </View>
         );
       }}
