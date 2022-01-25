@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import List from "./src/components/List";
 
@@ -13,13 +13,16 @@ const fakeData = [
 const App = () => {
   const [value, setValue] = useState(0);
 
-  const onItemClick = useCallback((item) => {
-    console.log(`This is the item value: ${item.number}`);
-  }, []);
+  const onItemClick = useCallback(
+    (item) => {
+      console.log(`This is the item value: ${item.value}, ${value}`);
+    },
+    [value],
+  );
 
   return (
     <>
-      <Text style={styles.title}>useReducer Example</Text>
+      <Text style={styles.title}>useCallback Example</Text>
       <View style={styles.container}>
         <Text style={styles.text}>{value}</Text>
         <Button
@@ -27,7 +30,6 @@ const App = () => {
           onPress={() => setValue((value) => value + 1)}
         />
         <List data={fakeData} onItemClick={onItemClick} />
-        <Button title="Generate List" onPress={() => {}} />
       </View>
     </>
   );
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     alignSelf: "center",
-    marginTop: 50,
+    marginTop: 60,
   },
   text: {
     fontSize: 20,
