@@ -10,7 +10,10 @@ import {
 const App = () => {
   const [text, setText] = useState("");
 
-  const inputRef = useRef();
+  // useRef() retorna um objeto {current: ...}
+  // É um objeto memoizado
+
+  const inputRef = (useRef < TextInput) | (null > null);
   const dataRef = useRef();
 
   const saveInput = () => {
